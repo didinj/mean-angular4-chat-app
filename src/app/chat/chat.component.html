@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary" *ngIf="joinned; else joinroom">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> {{ msgData.room }}
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs" (click)="logout()">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+                <div #scrollMe class="panel-body">
+                    <ul class="chat">
+                        <li *ngFor="let c of chats">
+                          <div class="left clearfix" *ngIf="c.nickname===msgData.nickname; else rightchat">
+                            <span class="chat-img pull-left">
+                              <img src="http://placehold.it/50/55C1E7/fff&text=ME" alt="User Avatar" class="img-circle" />
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{ c.nickname }}</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>{{ c.updated_at | date: 'medium' }}</small>
+                                </div>
+                                <p>{{ c.message }}</p>
+                            </div>
+                          </div>
+                          <ng-template #rightchat>
+                            <div class="right clearfix">
+                              <span class="chat-img pull-right">
+                                <img src="http://placehold.it/50/FA6F57/fff&text=U" alt="User Avatar" class="img-circle" />
+                              </span>
+                              <div class="chat-body clearfix">
+                                  <div class="header">
+                                      <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{ c.updated_at | date: 'medium' }}</small>
+                                      <strong class="pull-right primary-font">{{ c.nickname }}</strong>
+                                  </div>
+                                  <p>{{ c.message }}</p>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                  <form (ngSubmit)="sendMessage()" #msgForm="ngForm">
+                    <div class="input-group">
+                        <input type="hidden" [(ngModel)]="msgData.room" name="room" />
+                        <input type="hidden" [(ngModel)]="msgData.nickname" name="nickname" />
+                        <input id="btn-input" type="text" [(ngModel)]="msgData.message" name="message" class="form-control input-sm" placeholder="Type your message here..." required="" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" [disabled]="!msgForm.form.valid">
+                                Send</button>
+                        </span>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            <ng-template #joinroom>
+              <div class="panel panel-primary">
+                <div class="panel-body">
+                  <h1>Select Chat Room</h1>
+                  <form (ngSubmit)="joinRoom()" #joinForm="ngForm">
+                    <div class="form-group">
+                      <input type="text" class="form-control" [(ngModel)]="newUser.nickname" name="nickname" placeholder="Nickname" required="" />
+                    </div>
+                    <div class="form-group">
+                      <select class="form-control" [(ngModel)]="newUser.room" name="room" required="">
+                        <option>Select Room</option>
+                        <option value="Javascript">Javascript</option>
+                        <option value="Java">Java</option>
+                        <option value="Python">Python</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success" [disabled]="!joinForm.form.valid">Join</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node ./bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,8 +20,15 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "body-parser": "^1.17.1",
     "core-js": "^2.4.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.2",
+    "morgan": "^1.8.1",
     "rxjs": "^5.1.0",
+    "serve-favicon": "^2.4.2",
+    "socket.io-client": "^1.7.3",
+    "socketio": "^1.0.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
